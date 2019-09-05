@@ -1,0 +1,49 @@
+import remiseras.*
+
+test "funcionalidad de las remiseras/clientes 10kms" {
+/*
+ * - _Roxana_: a Ludmila 180 pesos (18 * 10), a Ana María 300, a Teresa 220.
+- _Gabriela_: a Ludmila 216 pesos (180 * 1.2), a Ana María 360, a Teresa 264.
+- _Mariela_: lo mismo que Roxana.
+- _Juana_: 200 pesos a todos.
+ */	
+	assert.equals(180,roxana.precioViaje(ludmila,10))
+	assert.equals(360,gabriela.precioViaje(ana_Maria,10))
+	assert.equals(220,mariela.precioViaje(teresa,10))
+	assert.equals(200,juana.precioViaje(teresa,10))
+}
+
+
+test "funcionalidad de las remiseras/clientes 2kms"{
+/*
+ * Si el viaje es de 2 kilómetros, los valores son estos:
+- _Roxana_: a Ludmila 36 pesos (18 * 2), a Ana María 60, a Teresa 44.
+- _Gabriela_: a Ludmila 43.20 pesos (36 * 1.2), a Ana María 72, a Teresa 52.80.
+- _Mariela_: a Ludmila y a Teresa 50 pesos que es el mínimo, a Ana María 60.
+- _Juana_: 100 pesos a todos.
+ */
+ 	assert.equals(36,roxana.precioViaje(ludmila,2))
+	assert.equals(72,gabriela.precioViaje(ana_Maria,2))
+	assert.equals(50,mariela.precioViaje(teresa,2))
+	assert.equals(100,juana.precioViaje(teresa,2))
+	
+	}
+	
+test "funcionalidad oficina"{
+	/*Supongamos que en un momento dado la remisera de primera opción es Roxana, 
+	 * y el de segunda opción es Juana. En este caso
+- para un viaje de 10 kilómetros para Ana María, la remisera elegida es Juana, 
+* porque su precio de 200 pesos, es menor al de Roxana (300 pesos), 
+* y la diferencia es de más de 30 pesos.
+- si el viaje es para Teresa, entonces Roxana ofrece 220 pesos y Juana 200.
+*  El precio de Juana es menor, pero la diferencia no llega a 30 pesos. 
+* Por lo tanto, la remisera elegido es Roxana.
+- si el viaje es de 4 kilómetros para Teresa, entonces Roxana cobra 88 pesos
+*  y Juana 100. El precio de Roxana es menor pero la diferencia no es mayor a 30, 
+* por lo tanto Juana es la elegida.   */
+
+	oficina.asignarRemiseras(roxana,juana)
+	assert.equals(220,roxana.precioViaje(teresa,10))
+	assert.equals(200,juana.precioViaje(teresa,10))
+	assert.equals(roxana,oficina.remiseraElegidaParaViaje(teresa,10))
+}
